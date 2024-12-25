@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export const BodyText = styled.p<{ $variant?: 'body1' | 'body2' | 'body3' | 'body4' }>`
-
+export const BodyText = styled.p<{ $variant?: 'body1' | 'body2' | 'body3' | 'body4', $color?: string }>`
     font-size: ${({ $variant }) => {
         switch ($variant) {
             case 'body1':
@@ -17,20 +16,20 @@ export const BodyText = styled.p<{ $variant?: 'body1' | 'body2' | 'body3' | 'bod
         }
     }};
     line-height: ${({ $variant }) => {
-    switch ($variant) {
-        case 'body1':
-            return '24px';
-        case 'body2':
-            return '24px';
-        case 'body3':
-            return '20px';
-        case 'body4':
-            return '20px';
-        default:
-            return '24px';
+        switch ($variant) {
+            case 'body1':
+                return '24px';
+            case 'body2':
+                return '24px';
+            case 'body3':
+                return '20px';
+            case 'body4':
+                return '20px';
+            default:
+                return '24px';
         }}
     };
-    color: ${({ theme }) => theme.palette.text.primary};
+    color: ${({ $color }) => $color ? $color : 'black'};
     margin: 0;
     padding: 0;
     font-weight: ${({ $variant }) => {
@@ -49,4 +48,4 @@ export const BodyText = styled.p<{ $variant?: 'body1' | 'body2' | 'body3' | 'bod
     }};
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.5px;
-`
+`;

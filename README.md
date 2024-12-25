@@ -18,3 +18,7 @@ Esse repositório foi criado com o intuito de desenvolver um Design System, util
 
 #### 2) Componentes de Tipografia
 * Criados como versões estilizadas de parágrafos e headings.
+
+#### 3) Botão
+* Disponível para os tamanhos **giant**, **large**, **medium**, **small** e **tiny**, o componente de botão possui duas variantes principais: **outlined**, que possui um fundo transparente, e **primary**, que possui o fundo correspondente à cor primária. Além disso, o botão foi estilizado para diferentes estados: **hover**, **disabled**, **active** e **focus**
+![Exemplo de botão](./assets/button.png)

@@ -132,6 +132,11 @@ declare module 'styled-components' {
                 small: string
                 tiny: string
             }
-        }
+        },
+        fontWeights: {
+            regular: number
+            medium: number
+            bold: number
+        },
     }
 }

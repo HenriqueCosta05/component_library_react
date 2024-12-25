@@ -131,6 +131,11 @@ export const theme: DefaultTheme = {
             medium: '14px',
             small: '12px',
             tiny: '10px'
-        }
-    }
+        },
+    },
+    fontWeights: {
+        regular: 400,
+        medium: 500,
+        bold: 700,
+    },
 }
