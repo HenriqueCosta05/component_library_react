@@ -1,4 +1,4 @@
-import { ButtonComponent, CardComponent, ImageComponent } from "./components/ui";
+import { ButtonComponent, ButtonGroupComponent, CardComponent, ImageComponent } from "./components/ui";
 import { CaptionText, HeadingText } from "./components/ui/typography";
 
 export default function App() {
@@ -84,6 +84,16 @@ export default function App() {
                     height="20px"
                 />
             </ButtonComponent>
+
+            <ButtonGroupComponent size="medium">
+                <ButtonComponent variant="primary" size="medium">
+                    Click me
+                </ButtonComponent>
+                <ButtonComponent variant="outlined" size="medium">
+                    Click me
+                </ButtonComponent>
+            </ButtonGroupComponent>
+
         </>
     )
 }

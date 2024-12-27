@@ -11,7 +11,6 @@ export const StyledButton = styled.button<{
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin: 4px;
     cursor: pointer;
     font-family: Inter, sans-serif;
     font-weight: ${theme.fontWeights.medium};
@@ -43,14 +42,8 @@ export const StyledButton = styled.button<{
                 return theme.fontSizes.buttonFont.giant;
         }
     }};
-    border: ${({ $variant }) => {
-        switch ($variant) {
-            case "outlined":
-                return `1px solid ${theme.colors.primary[500]}`;
-            default:
-                return "none";
-        }
-    }};
+    border: 1px solid ${theme.colors.primary[500]};
+
     border-radius: ${({ $size }) => {
         switch ($size) {
             case "tiny":
@@ -63,7 +56,8 @@ export const StyledButton = styled.button<{
                 return "12px";
             case "giant":
                 return "12px";
-        }}
+        }
+    }
     };
 
     background-color: ${({ $variant, $color }) => {
