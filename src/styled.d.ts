@@ -138,5 +138,55 @@ declare module 'styled-components' {
             medium: number
             bold: number
         },
+        radius: {
+            none: string,
+            xxs: string,
+            xs: string,
+            sm: string,
+            md: string,
+            lg: string,
+            xl: string,
+        },
+        spacing: {
+            none: string,
+            xxs: string,
+            xs: string,
+            sm: string,
+            md: string,
+            lg: string,
+            xl: string,
+        },
+        surface: {
+            white: string,
+            black: string,
+            grey: string,
+            accent: string,
+        },
+        icon: {
+            white: string,
+            black: string,
+            grey: string,
+            lightGrey: string,
+            accent: string,
+            success: string,
+            info: string,
+            warning: string,
+            error: string,
+        },
+        text: {
+            primaryWhite: string,
+            primaryBlack: string,
+            secondaryWhite: string,
+            secondaryDarkGrey: string,
+            grey: string,
+            lightGrey: string,
+            disabled: string,
+            accent: string,
+            links: string,
+            success: string,
+            info: string,
+            warning: string,
+            error: string,
+        }
     }
 }
