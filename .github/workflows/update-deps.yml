@@ -21,11 +21,11 @@ jobs:
           cache: 'yarn'
       
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Check if the project needs maintenance
         run: |
-          if ! yarn run storybook; then
+          if ! yarn build-storybook; then
             echo "Project needs maintenance. Storybook failed to run."
             exit 1
           else
@@ -48,7 +48,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Update dependencies
         run: yarn upgrade
