@@ -47,13 +47,26 @@ jobs:
           node-version: 'latest'
           cache: 'yarn'
 
+      - name: Check for differences in package.json
+        id: check_diff
+        run: |
+          if git diff --exit-code package.json; then
+            echo "No changes in package.json. Skipping dependency update."
+            exit 0
+          else
+            echo "Changes detected in package.json. Proceeding with dependency update."
+          fi
+
       - name: Install dependencies
+        if: steps.check_diff.outputs.changed == 'true'
         run: yarn install --frozen-lockfile
 
       - name: Update dependencies
+        if: steps.check_diff.outputs.changed == 'true'
         run: yarn upgrade
 
       - name: Commit changes
+        if: steps.check_diff.outputs.changed == 'true'
         env:
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
@@ -67,7 +80,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git fetch origin
+          git checkout -b development origin/development
           git fetch origin +refs/pull/${{ github.event.pull_request.number }}/merge
-          git checkout development
           git merge --no-ff FETCH_HEAD
           git push origin development
