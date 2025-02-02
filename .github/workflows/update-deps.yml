@@ -91,5 +91,5 @@ jobs:
           git fetch origin
           git checkout -b development origin/development
           git fetch origin +refs/pull/${{ github.event.pull_request.number }}/merge
-          git merge --allow-unrelated-histories --no-ff FETCH_HEAD
+          git merge -X theirs --no-ff FETCH_HEAD
           git push origin development
