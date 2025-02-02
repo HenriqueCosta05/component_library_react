@@ -53,16 +53,21 @@ jobs:
       - name: Update dependencies
         run: yarn upgrade
 
-      - name: Commit and push changes
+      - name: Commit changes
         env:
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
         run: |
           git config --global user.name "${GIT_USERNAME}"
           git config --global user.email "${GIT_EMAIL}"
-          git fetch origin
+          git add package.json yarn.lock
+          git commit -m 'chore: update dependencies'
+
+      - name: Switch to development branch and merge main
+        run: |
+          git fetch --all
           git checkout development
           git merge origin/main --strategy-option theirs
-          git add package.json
-          git commit -m 'chore: updated dependencies'
-          git push origin development
+
+      - name: Push changes
+        run: git push origin development
