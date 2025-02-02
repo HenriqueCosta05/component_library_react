@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node.js and Yarn
         uses: actions/setup-node@v4
         with:
-          node-version: lts
+          node-version: 'latest'
           cache: 'yarn'
 
       - name: Install dependencies
@@ -55,8 +55,15 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.name "${{ secrets.GIT_USERNAME }}"
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
           git add package.json yarn.lock
           git commit -m 'chore: update dependencies'
           git push
+
+      - name: Merge changes into development
+        run: |
+          git fetch origin
+          git checkout development
+          git merge --no-ff main
+          git push origin development
