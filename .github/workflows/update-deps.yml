@@ -61,7 +61,8 @@ jobs:
           git config --global user.name "${GIT_USERNAME}"
           git config --global user.email "${GIT_EMAIL}"
           git fetch --all
-          git switch development
-          git add package.json yarn.lock
+          git checkout development
+          git merge main --strategy-option theirs
+          git add package.json
           git commit -m 'chore: updated dependencies'
           git push origin development
