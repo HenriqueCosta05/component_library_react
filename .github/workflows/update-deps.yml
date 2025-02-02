@@ -59,11 +59,4 @@ jobs:
           git config --global user.email "${{ secrets.GIT_EMAIL }}"
           git add package.json yarn.lock
           git commit -m 'chore: update dependencies'
-          git push
-
-      - name: Merge changes into development
-        run: |
-          git fetch origin
-          git checkout development
-          git merge --no-ff main
           git push origin development
