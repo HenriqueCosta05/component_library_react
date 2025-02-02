@@ -76,10 +76,16 @@ jobs:
           git add package.json yarn.lock
           git commit -m 'chore: update dependencies'
 
-      - name: Merge PR branch into development
+      - name: Configure Git user
         env:
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+        run: |
+          git config --global user.name "${GIT_USERNAME}"
+          git config --global user.email "${GIT_EMAIL}"
+
+      - name: Merge PR branch into development
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git fetch origin
