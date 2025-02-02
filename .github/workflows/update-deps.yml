@@ -60,9 +60,9 @@ jobs:
         run: |
           git config --global user.name "${GIT_USERNAME}"
           git config --global user.email "${GIT_EMAIL}"
-          git fetch origin --all
+          git fetch origin
           git checkout development
-          git merge origin main --strategy-option theirs
+          git merge origin/main --strategy-option theirs
           git add package.json
           git commit -m 'chore: updated dependencies'
           git push origin development
