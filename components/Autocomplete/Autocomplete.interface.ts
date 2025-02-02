@@ -8,4 +8,6 @@ export interface AutocompleteProps {
     autoSelect?: boolean;
     blurOnSelect?: 'mouse' | 'touch' | boolean;
     clearIcon?: React.ReactNode;
+    multiple?: boolean;
+    disabled?: boolean;
 }

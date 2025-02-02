@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { AutocompleteProps } from "./Autocomplete.interface";
 import { theme } from "../../theme/material-ui";
 
-export const StyledAutocomplete = styled(Autocomplete)<AutocompleteProps>`
+export const StyledAutocomplete = styled(Autocomplete) <AutocompleteProps>`
     .MuiAutocomplete-input {
         padding: 10px;
         font-size: 16px;
@@ -28,6 +28,10 @@ export const StyledAutocomplete = styled(Autocomplete)<AutocompleteProps>`
 
     .MuiAutocomplete-popupIndicator {
         color: ${theme.palette.primary.main};
+        &:disabled {
+            color: rgba(249, 211, 66, 0.56);
+        }
+        &:invalid
     }
 
     .MuiAutocomplete-clearIndicator {
