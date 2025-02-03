@@ -1,0 +1,58 @@
+name: Merge PR to Development
+
+on:
+  workflow_run:
+    workflows: ["Verify Build"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge-pr-to-development:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        env:
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+        run: |
+          git config --global user.name "${GIT_USERNAME}"
+          git config --global user.email "${GIT_EMAIL}"
+
+      - name: Get PR details
+        id: pr
+        run: echo "PR_NUMBER=$(jq --raw-output .workflow_run.pull_requests[0].number $GITHUB_EVENT_PATH)" >> $GITHUB_ENV
+
+      - name: Fetch all branches
+        run: git fetch --all
+
+      - name: Checkout development branch
+        run: git checkout development
+
+      - name: Merge PR into development with auto-resolve
+        run: |
+          gh pr checkout $PR_NUMBER
+          git merge --no-ff $PR_NUMBER -m "Auto-merged PR #$PR_NUMBER into development" || (
+            echo "Merge conflict detected! Attempting auto-resolution..."
+            git merge --strategy-option=theirs $PR_NUMBER || (
+              echo "Conflict could not be resolved automatically. Creating temp branch for manual resolution."
+              TEMP_BRANCH="auto-merge-conflict-$PR_NUMBER"
+              git checkout -b $TEMP_BRANCH
+              git push origin $TEMP_BRANCH
+              echo "::error:: Merge conflict requires manual resolution. Review branch '$TEMP_BRANCH'."
+              exit 1
+            )
+          )
+          git push origin development
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
